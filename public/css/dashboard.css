@@ -1,0 +1,421 @@
+.dashboard-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dashboard-title h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.dashboard-title p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-top: 0.25rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 6px -1px var(--primary-glow);
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px -1px var(--primary-glow);
+}
+
+.btn-primary svg {
+  flex-shrink: 0;
+}
+
+/* Stat Cards Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-glow);
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+/* Specific Card variants */
+.stat-card.overdue .stat-icon {
+  background-color: var(--priority-high-bg);
+  color: var(--priority-high);
+}
+.stat-card.in-progress .stat-icon {
+  background-color: var(--priority-medium-bg);
+  color: var(--priority-medium);
+}
+.stat-card.completed .stat-icon {
+  background-color: var(--priority-low-bg);
+  color: var(--priority-low);
+}
+
+/* Dashboard Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2rem;
+}
+
+.chart-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.75rem;
+}
+
+.chart-container {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 280px;
+}
+
+/* Action Panels (Due Today / Overdue) */
+.panels-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.panel-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  max-height: 380px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  flex: 1;
+  margin-top: 1rem;
+}
+
+.empty-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  padding: 3rem 0;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.empty-panel svg {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.panel-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  transition: var(--transition-smooth);
+}
+
+.panel-item:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.panel-item.due-today {
+  border-left: 4px solid var(--priority-medium);
+}
+
+.panel-item.overdue {
+  border-left: 4px solid var(--priority-high);
+}
+
+.panel-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.panel-item-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.panel-item-date {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.panel-item-date.danger {
+  color: var(--priority-high);
+  font-weight: 500;
+}
+
+.panel-item-date.warning {
+  color: var(--priority-medium);
+  font-weight: 500;
+}
+
+@media (max-width: 968px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* --- AI Productivity Score Ring & Tip Styles --- */
+.score-circle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring__circle-bg {
+  stroke: var(--border-color);
+}
+
+.progress-ring__circle {
+  stroke-dasharray: 175.93; /* 2 * PI * r = 2 * 3.14159 * 28 = 175.93 */
+  stroke-dashoffset: 175.93;
+}
+
+/* --- Smart Deadline Warnings --- */
+.smart-warning-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.08); /* Human touch: slightly off box shadow */
+  transition: all 0.3s ease;
+  animation: slideDownWarning 0.4s ease;
+}
+
+@keyframes slideDownWarning {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.smart-warning-banner.critical {
+  background-color: var(--priority-high-bg);
+  color: var(--priority-high);
+  border-left: 5px solid var(--priority-high);
+}
+
+.smart-warning-banner.warning {
+  background-color: var(--priority-medium-bg);
+  color: var(--priority-medium);
+  border-left: 5px solid var(--priority-medium);
+}
+
+.smart-warning-btn-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: currentColor;
+  opacity: 0.7;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.smart-warning-btn-close:hover {
+  opacity: 1;
+}
+
+/* --- AI Daily Routine Suggester --- */
+.routine-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  transition: var(--transition-smooth);
+}
+
+.routine-item:hover {
+  background-color: var(--bg-primary);
+  border-color: var(--text-muted);
+}
+
+.routine-checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+.routine-item-info {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.routine-item-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.routine-item-meta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* --- Human Touch Aesthetics --- */
+/* Slightly imperfect spacing in 1-2 places (5px instead of perfect 8px grid) */
+.header-action-btns {
+  gap: 5px !important; /* Imperfect spacing */
+}
+
+/* One section where font size is 13px instead of standard 14px */
+.score-tip-text {
+  font-size: 13px !important; /* Imperfect font size */
+}
+
+/* Color palette variation: one button uses #3b82f7 while others are #3b82f6 */
+.btn-primary-alt {
+  background-color: #3b82f7 !important; /* Slightly different primary blue */
+}
+
+/* Subtle hover animation on task cards that's slightly different from standard */
+.panel-item {
+  box-shadow: 2px 3px 8px rgba(0,0,0,0.12) !important; /* Slightly off box shadow */
+}
+.panel-item:hover {
+  transform: translateY(-1px) !important; /* translateY(-1px) instead of translateX(4px) */
+}

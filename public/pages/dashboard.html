@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AI Task Manager</title>
+  <meta name="description" content="Manage and view your task statistics, calendar deadlines, and productivity stats in one central dashboard.">
+  
+  <!-- Google Fonts (Inter) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <nav class="navbar" id="app-navbar">
+    <a href="/pages/dashboard.html" class="nav-brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+      </svg>
+      <span>AI Task Manager</span>
+    </a>
+    <div class="nav-actions">
+      <!-- Dark Mode Switcher -->
+      <button id="dark-mode-toggle" class="nav-btn" aria-label="Toggle Dark Mode">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+
+      <!-- Authenticated User Profile -->
+      <div class="nav-user">
+        <img id="user-avatar" class="nav-avatar" src="" alt="Avatar placeholder">
+        <span id="user-name" class="nav-username">Loading User...</span>
+      </div>
+
+      <!-- Logout Action -->
+      <button id="btn-logout" class="btn-logout">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Dashboard Workspace -->
+  <main class="dashboard-container">
+    <div class="dashboard-header">
+      <div class="dashboard-title">
+        <h1>Welcome Back</h1>
+        <p>Observe your statistics, weekly completion history, and tasks requiring urgent attention.</p>
+      </div>
+      <div style="display: flex; gap: 0.75rem; align-items: center;" class="header-action-btns">
+        <button class="btn-secondary" id="btn-suggest-day" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background-color: var(--ai-badge-bg); color: var(--ai-badge); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 10px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: var(--transition-smooth); box-shadow: 0 4px 6px -1px var(--primary-glow);">
+          <span>✨ Suggest My Day</span>
+        </button>
+        <a href="/pages/taskboard.html" class="btn-primary" id="btn-go-to-board">
+          <span>Go to Task Board</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Summary Metrics Cards -->
+    <section class="stats-grid" aria-label="Stats overview">
+      <!-- Total Tasks -->
+      <div class="stat-card" id="card-total">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="total-tasks-val">0</span>
+          <span class="stat-label">Total Tasks</span>
+        </div>
+      </div>
+
+      <!-- Completed -->
+      <div class="stat-card completed" id="card-completed">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="completed-tasks-val">0</span>
+          <span class="stat-label">Completed</span>
+        </div>
+      </div>
+
+      <!-- In Progress -->
+      <div class="stat-card in-progress" id="card-in-progress">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="2" x2="12" y2="6"></line>
+            <line x1="12" y1="18" x2="12" y2="22"></line>
+            <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+            <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+            <line x1="2" y1="12" x2="6" y2="12"></line>
+            <line x1="18" y1="12" x2="22" y2="12"></line>
+            <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+            <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="in-progress-val">0</span>
+          <span class="stat-label">In Progress</span>
+        </div>
+      </div>
+
+      <!-- Overdue -->
+      <div class="stat-card overdue" id="card-overdue">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value" id="overdue-tasks-val">0</span>
+          <span class="stat-label">Overdue</span>
+        </div>
+      </div>
+
+      <!-- Productivity Score Card (circular progress ring) -->
+      <div class="stat-card" id="card-productivity" style="display: flex; align-items: center; gap: 1.25rem;">
+        <div class="score-circle-wrapper" style="position: relative; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <svg class="progress-ring" width="70" height="70">
+            <circle class="progress-ring__circle-bg" stroke="var(--border-color)" stroke-width="5" fill="transparent" r="28" cx="35" cy="35"/>
+            <circle class="progress-ring__circle" stroke="var(--priority-low)" stroke-width="5" fill="transparent" r="28" cx="35" cy="35" stroke-linecap="round" style="stroke-dasharray: 175.93; stroke-dashoffset: 175.93; transition: stroke-dashoffset 0.6s ease, stroke 0.3s ease;"/>
+          </svg>
+          <div class="score-text-val" id="productivity-score-text" style="position: absolute; font-size: 1.2rem; font-weight: 800; color: var(--text-primary);">0</div>
+        </div>
+        <div class="stat-info" style="flex: 1;">
+          <span class="stat-value" style="display:none;">-</span>
+          <span class="stat-label" style="font-weight: 700; margin-top: 0; font-size: 0.9rem;">Productivity Score</span>
+          <span class="score-tip-text" id="productivity-tip" style="font-style: italic; font-size: 0.75rem; color: var(--text-secondary); display: block; margin-top: 0.15rem; line-height: 1.25;">Evaluating...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Smart Deadline Warning Banners -->
+    <div id="smart-warning-container" style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.25rem; margin-bottom: 0.25rem;">
+      <!-- Banners will be rendered dynamically -->
+    </div>
+
+    <!-- Main Content Panels Section -->
+    <div class="dashboard-grid">
+      <!-- Left Column: Weekly Productivity Chart -->
+      <section class="chart-card">
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          <span>Weekly Productivity Rates (Last 7 Days)</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="weeklyChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Right Column: Urgent Action Items lists -->
+      <div class="panels-column">
+        <!-- Due Today -->
+        <section class="panel-card" id="due-today-panel">
+          <div class="card-title" style="color: var(--priority-medium);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Due Today</span>
+          </div>
+          <div class="panel-list" id="due-today-list">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+
+        <!-- Overdue Tasks -->
+        <section class="panel-card" id="overdue-panel">
+          <div class="card-title" style="color: var(--priority-high);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span>Overdue Tasks</span>
+          </div>
+          <div class="panel-list" id="overdue-list">
+            <!-- Dynamically populated -->
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- FEATURE 1: AI Daily Routine Suggester Modal -->
+  <div class="modal-overlay" id="routine-modal">
+    <div class="modal-container" style="max-width: 650px;">
+      <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+        <h2 style="font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+          <span>✨ Suggested Daily Routine</span>
+        </h2>
+        <button id="btn-close-routine-modal" style="background: none; border: none; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; line-height: 1;">&times;</button>
+      </div>
+      <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; max-height: 60vh; overflow-y: auto;">
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4;">
+          We analyzed your tasks. Here is a custom-tailored daily routine designed for optimal productivity. Select the items you'd like to import:
+        </p>
+        
+        <!-- Routine Sections -->
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <!-- Morning Section -->
+          <div class="routine-section">
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.5rem;">
+              🌅 Morning Routine
+            </h3>
+            <div id="routine-morning-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <!-- Dynamic morning tasks -->
+            </div>
+          </div>
+          
+          <!-- Work Section -->
+          <div class="routine-section">
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--priority-medium); display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.5rem;">
+              💻 Focus / Work Hours
+            </h3>
+            <div id="routine-work-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <!-- Dynamic work tasks -->
+            </div>
+          </div>
+          
+          <!-- Evening Section -->
+          <div class="routine-section">
+            <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--priority-low); display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.5rem;">
+              🌙 Evening Wind-down
+            </h3>
+            <div id="routine-evening-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+              <!-- Dynamic evening tasks -->
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="padding: 1.25rem 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.75rem; background-color: var(--bg-primary); border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;">
+        <button id="btn-routine-dismiss" class="btn-logout" style="border-radius: 8px; font-weight: 600; padding: 0.6rem 1.2rem;">Dismiss</button>
+        <button id="btn-routine-add-selected" class="btn-primary" style="padding: 0.6rem 1.2rem; border-radius: 8px; display: inline-flex; align-items: center; gap: 0.35rem;">
+          <span>Add Selected to Board</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CDN scripts -->
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <!-- Main scripts -->
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
